@@ -5,15 +5,16 @@ const app = express();
 
 let items = ["Study Chemistry" , "Complete assignment" , "Make flappyBirdAI"];
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.set('veiw engine','ejs');
 
+app.set('view engine','ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
 
 app.get("/",function(req,res){
     let today = new Date();
     let options = {weekday: "long" , day: "numeric" , month: "long"};
     let day = today.toLocaleDateString('en-US',options);
-    res.render("index" , {kindOfDay:day,newItems:items});
+    res.render("index" ,{kindOfDay:day,newListItems: items});
 });
 
 app.post("/",function(req,res){
